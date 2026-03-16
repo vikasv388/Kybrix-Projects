@@ -19,7 +19,9 @@ class LoginPage{
     }
 
     get signInButton(){
-        return this.page.locator("(//button[contains(text(),'Sign In')])[3]");
+        //return this.page.locator("(//button[contains(text(),'Sign In')])[1]");
+        //return this.page.locator("//button[@fdprocessedid='wdm7zb']");
+        return this.page.getByRole('button', { name: 'Sign In' }).click();
     }
 
 
