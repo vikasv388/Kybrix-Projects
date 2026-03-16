@@ -19,9 +19,9 @@ class LoginPage{
     }
 
     get signInButton(){
-        //return this.page.locator("(//button[contains(text(),'Sign In')])[1]");
+        return this.page.locator("(//button[contains(text(),'Sign In')])[3]");
         //return this.page.locator("//button[@fdprocessedid='wdm7zb']");
-        return this.page.getByRole('button', { name: 'Sign In' }).click();
+        //return this.page.getByRole('button', { name: 'Sign In' }).click();
     }
 
 
@@ -36,6 +36,7 @@ class LoginPage{
  async verifyHomepage(){
    await expect(this.page).toHaveURL('https://rentifaidev.coinbitwallet.com/');
     console.log("✅ Homepage verified successfully ===>", this.page.url());
+    
  }
 
  async clickOntheLoginButton(){
