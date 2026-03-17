@@ -3,6 +3,7 @@ const { expect } = require('@playwright/test');
 class LoginPage{
  constructor(page) {
         this.page = page;
+        this.dashboardButton = this.page.locator("(//h1[normalize-space()='Dashboard'])");
     }
 
 
@@ -23,6 +24,10 @@ class LoginPage{
         //return this.page.locator("//button[@fdprocessedid='wdm7zb']");
         //return this.page.getByRole('button', { name: 'Sign In' }).click();
     }
+
+    /*get dashboardButton(){
+        return this.page.locator("(//h1[normalize-space()='Dashboard'])");
+    }*/
 
 
 
@@ -53,6 +58,19 @@ async fillPasswordField(password){
 
 async clickOnTheSignInButton(){
     await this.signInButton.click();
+}
+
+async verifyDashboard(){
+    try{
+    await expect(this.dashboardButton).toBeVisible({ timeout: 30000 });
+    }catch(error){
+    await this.page.reload({ waitUntil: 'load' });
+    await expect(this.dashboardButton).toBeVisible({ timeout: 30000 });
+    }  
+    
+     await expect(this.page).toHaveURL('https://rentifaidev.coinbitwallet.com/user-rent/dashboard');
+    console.log("✅ Dashbordpage verified successfully ===>", this.page.url());
+  
 }
 
 
