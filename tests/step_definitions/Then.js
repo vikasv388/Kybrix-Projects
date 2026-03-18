@@ -10,3 +10,11 @@ Then('Verify that user is on homepage', async function () {
 Then('User should be redirected on homepage', async function () {
     await this.loginPage.verifyDashboard();
 });
+
+Then('Location field should be visible on the page', async function () {
+    await this.loginPage.verifyLocationText();
+});
+
+Then('List of the cars should be visible', async function () {
+    await this.loginPage.verifyCarSearchPage();
+});

@@ -42,6 +42,35 @@ class LoginPage{
     });
 }
 
+   get locationText(){
+    return this.page.locator("//label[contains(text(),'LOCATION')]");
+   }
+
+
+   get locationField(){
+    return this.page.locator("#location-city-input");
+   }
+
+    get pickupField(){
+    return this.page.locator("//input[@placeholder='Pick-Up Date']");
+   }
+
+   get dropOffField(){
+    return this.page.locator("//input[@placeholder='Drop-Off Date']");
+   }
+
+   get searchButton(){
+    return this.page.locator("//button[contains(text(),'Search')]");
+   }
+
+   get bookNowButton(){
+    return this.page.locator("(//button[contains(text(),'Boook Now')])[1]");
+   }
+
+
+
+
+
  async verifyHomepage(){
    await expect(this.page).toHaveURL('https://rentifaidev.coinbitwallet.com/');
     console.log("✅ Homepage verified successfully ===>", this.page.url());
@@ -87,8 +116,48 @@ async clickOnRentACarButton(){
 }
 
 async clickOnRentNowButton(){
-     await this.rentNowButton.toBeVisible({ timeout: 30000 });  
+    await expect(this.rentNowButton).toBeVisible({ timeout: 30000 });  
     await this.rentNowButton.click();
+}
+
+async verifyLocationText(){
+    await expect(this.locationText, 'Location field is not visible').toBeVisible();
+}
+  
+async fillLocationField(location){
+    await this.locationField.fill(location);
+    await this.page.waitForTimeout(5000);
+    await this.page.keyboard.press('ArrowDown');
+    await this.page.keyboard.press('Enter');
+}
+
+async fillPickUpField(){
+    await this.pickupField.click();
+    await this.page.keyboard.press('ArrowRight');
+    await this.page.keyboard.press('Enter');
+    const time = await this.page.locator("(//ul[@class='react-datepicker__time-list']//li)[11]");
+    await time.click();
+}
+
+async fillDropOffField(){
+    await this.dropOffField.click();
+    const time = await this.page.locator("(//ul[@class='react-datepicker__time-list']//li)[15]");
+    await this.page.waitForTimeout(2000);
+    await time.click();
+   
+}
+
+async clickOnSearchButton(){
+    await this.searchButton.click();
+}
+
+async verifyCarSearchPage(){
+    await expect(this.bookNowButton, 'Car list page is not visible').toBeVisible();
+}
+
+async clickOnBookNowButton(){
+    await this.bookNowButton.click();
+    await this.page.pause();
 }
 
 }

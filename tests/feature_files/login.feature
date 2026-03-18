@@ -14,11 +14,19 @@ Examples:
 | vikasvkybrix@gmail.com | Hello@123     | 
 
 
-# Scenario Outline: Verify that user is able to rent a car with current date and time
-# When User clicks the Rent a Car button
-# When User click the Rent Now button on the dashboard
-# Examples:
-# ||
-# ||
+Scenario Outline: Verify that user is able to rent a car with future date and time
+When User clicks the Rent a Car button
+When User click the Rent Now button on the dashboard
+Then Location field should be visible on the page
+When User fills the "<location>" in the location field
+When User selects the Pickup date and time
+When User selects the drop-off date and time
+When User clicks the Search Button
+Then List of the cars should be visible
+When User clicks on the "Book Now" button
+Examples:
+| location                                            |
+| Nile Road, Forrest Hill, Auckland 0620, New Zealand |
    
+
 
