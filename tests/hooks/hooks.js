@@ -16,12 +16,13 @@ BeforeAll(async () => {
     const context = await browser.newContext({ viewport: null });
     page = await context.newPage();
     await context.clearCookies();
+    page.setDefaultTimeout(30000);
 });
 
 Before(async function () {
     this.page = page; 
     this.loginPage = new LoginPage(this.page);
-   
+    this.page.setDefaultTimeout(30000);
 });
 
 After(async function (scenario) {

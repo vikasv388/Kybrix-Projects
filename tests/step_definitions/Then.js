@@ -18,3 +18,19 @@ Then('Location field should be visible on the page', async function () {
 Then('List of the cars should be visible', async function () {
     await this.loginPage.verifyCarSearchPage();
 });
+
+Then('Selected car should be visible with "Trip Summary" details', async function () {
+    await this.loginPage.verifyTripSummaryText();
+});
+
+Then('User should be redirected to "Order Summary" page', async function () {
+    await this.loginPage.verifyOrderSummaryPage();
+});
+
+Then('"Confirm Security Block" popup should be visible', async function () {
+    await this.loginPage.verifySecurityBlockPopup();
+});
+
+Then('User should be redirected on payment page', async function () {
+    await this.loginPage.verifySavePaymentPage();
+});

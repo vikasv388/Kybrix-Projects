@@ -24,6 +24,16 @@ When User selects the drop-off date and time
 When User clicks the Search Button
 Then List of the cars should be visible
 When User clicks on the "Book Now" button
+Then Selected car should be visible with "Trip Summary" details
+When User clicks the "I agree" checkbox
+When User clicks the "Down arrow" button on the terms and condition page
+When User clicks the "Agree and Close" button
+When User click on the "Proceed to pay" button
+Then User should be redirected to "Order Summary" page
+When User click on the "Proceed to pay" button
+Then "Confirm Security Block" popup should be visible
+When User clicks the "I Agree, Continue" button
+Then User should be redirected on payment page
 Examples:
 | location                                            |
 | Nile Road, Forrest Hill, Auckland 0620, New Zealand |

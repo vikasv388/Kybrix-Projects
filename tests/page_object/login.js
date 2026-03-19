@@ -64,11 +64,45 @@ class LoginPage{
    }
 
    get bookNowButton(){
-    return this.page.locator("(//button[contains(text(),'Boook Now')])[1]");
+    return this.page.locator("(//button[contains(text(),'Book Now')])[1]");
    }
 
+get tripSummaryText(){
+    return this.page.locator("//h3[contains(text(),'Trip Summary')]");
+   }
 
+   get iAgreeCheckbox(){
+    return this.page.locator("#terms-checkbox");
+   }
 
+   get downArrowButton(){
+    return this.page.locator('(//button[contains(@class, "sticky") and contains(@class, "cursor-pointer") and contains(@style, "float: right")])[2]');
+   }
+
+   get agreeAndCloseButton(){
+    return this.page.locator("//div[@class='flex justify-center items-center']//button");
+   }
+
+get proceedToPayButton(){
+    return this.page.locator("//button[contains(text(),'Proceed to pay')]|//button[contains(text(),'Proceed to Pay')]");
+   }
+
+get orderSummaryPage(){
+    return this.page.locator("//h3[contains(text(),'Order Summary')]");
+   }
+
+   get securityBlockPopup(){
+    return this.page.locator("//h3[contains(text(),'Confirm Security Block')]");
+   }
+
+   get iAgreeAndContinueButton(){
+    return this.page.locator("//button[contains(text(),'I Agree, Continue')]");
+   }
+
+    get savePaymentPage(){
+    return this.page.locator("//h2[contains(text(),'Price Summary')]");
+   }
+ 
 
 
  async verifyHomepage(){
@@ -152,13 +186,53 @@ async clickOnSearchButton(){
 }
 
 async verifyCarSearchPage(){
-    await expect(this.bookNowButton, 'Car list page is not visible').toBeVisible();
+    await expect(this.bookNowButton, 'Car list page is not visible').toBeVisible({timeout:30000});
 }
 
 async clickOnBookNowButton(){
     await this.bookNowButton.click();
-    await this.page.pause();
 }
+
+async verifyTripSummaryText(){
+    await expect(this.tripSummaryText).toBeVisible();
+}
+
+async clickOnIAgreeCheckbox(){
+    await this.iAgreeCheckbox.click();
+}
+
+async clickOnDownArrowButton(){
+    await this.downArrowButton.click();
+}
+
+async clickOnAgreeAndCloseButton(){
+    await this.agreeAndCloseButton.click();
+}
+
+async clickOnproceedToPayButton(){
+    await this.proceedToPayButton.click();
+}
+
+async verifyOrderSummaryPage(){
+    await expect(this.orderSummaryPage).toBeVisible({timeout:30000});
+}
+
+async verifySecurityBlockPopup(){
+    await expect(this.securityBlockPopup).toBeVisible();
+}
+
+async clickOnIAgreeAndContinueButton(){
+    await this.iAgreeAndContinueButton.click();
+}
+
+async verifySavePaymentPage(){
+    await expect(this.savePaymentPage).toBeVisible({timeout: 40000});
+}
+
+
+
+
+
 
 }
 module.exports = { LoginPage };

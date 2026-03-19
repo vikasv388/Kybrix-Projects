@@ -46,3 +46,23 @@ When('User clicks the Search Button', async function () {
 When('User clicks on the "Book Now" button', async function () {
     await this.loginPage.clickOnBookNowButton();
 });
+
+When('User clicks the "I agree" checkbox', async function () {
+    await this.loginPage.clickOnIAgreeCheckbox();
+});
+
+When('User clicks the "Down arrow" button on the terms and condition page', async function () {
+    await this.loginPage.clickOnDownArrowButton();
+});
+
+When('User clicks the "Agree and Close" button', async function () {
+    await this.loginPage.clickOnAgreeAndCloseButton();
+});
+
+When('User click on the "Proceed to pay" button', async function () {
+    await this.loginPage.clickOnproceedToPayButton();
+});
+
+When('User clicks the "I Agree, Continue" button', async function () {
+    await this.loginPage.clickOnIAgreeAndContinueButton();
+});
