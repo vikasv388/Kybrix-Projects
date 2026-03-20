@@ -34,3 +34,11 @@ Then('"Confirm Security Block" popup should be visible', async function () {
 Then('User should be redirected on payment page', async function () {
     await this.loginPage.verifySavePaymentPage();
 });
+
+Then('"Booking Complete" popup should be visible', async function () {
+    await this.loginPage.verifyBookingCompletePopup();
+});
+
+Then('Verify that created booking is visible in the "Rented Cars" list', async function () {
+    await this.loginPage.verifyBookingNumber();
+});

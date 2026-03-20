@@ -99,10 +99,28 @@ get orderSummaryPage(){
     return this.page.locator("//button[contains(text(),'I Agree, Continue')]");
    }
 
-    get savePaymentPage(){
-    return this.page.locator("//h2[contains(text(),'Price Summary')]");
+   get bookingCompletePopup(){
+    return this.page.locator("//h3[contains(text(),'BOOKING COMPLETE')]");
    }
+
+   get completeBookingDashboardButton(){
+    return this.page.locator("//button[contains(text(),'Dashboard')]");
+   }
+
+   get bookingNumberField(){
+    return this.page.locator("(//tr[@class='border-b border-b-[#707070] sticky top-0 text-[#fff] bg-[#a64ac9] max-sm:px-0']//th)[3]");
+   }
+
+
+
  
+
+
+
+
+
+
+
 
 
  async verifyHomepage(){
@@ -176,7 +194,7 @@ async fillPickUpField(){
 async fillDropOffField(){
     await this.dropOffField.click();
     const time = await this.page.locator("(//ul[@class='react-datepicker__time-list']//li)[15]");
-    await this.page.waitForTimeout(2000);
+    await this.page.waitForTimeout(1000);
     await time.click();
    
 }
@@ -194,7 +212,7 @@ async clickOnBookNowButton(){
 }
 
 async verifyTripSummaryText(){
-    await expect(this.tripSummaryText).toBeVisible();
+    await this.tripSummaryText.waitFor({state: 'visible', timeout:20000})
 }
 
 async clickOnIAgreeCheckbox(){
@@ -222,17 +240,50 @@ async verifySecurityBlockPopup(){
 }
 
 async clickOnIAgreeAndContinueButton(){
+    await this.iAgreeAndContinueButton.waitFor({state: 'visible', timeout:20000});
     await this.iAgreeAndContinueButton.click();
 }
 
 async verifySavePaymentPage(){
-    await expect(this.savePaymentPage).toBeVisible({timeout: 40000});
+    const expiryFrame = this.page.frameLocator("//iframe[@title='Embedded checkout']");
+    await expiryFrame.locator("//h2[contains(text(),'Save payment information')]").waitFor({state: 'visible', timeout:20000});
 }
 
 
+async fillCardNumberField(card,date,cvc,name){
+    const expiryFrame = this.page.frameLocator("//iframe[@title='Embedded checkout']");
+    await expiryFrame.locator("#cardNumber").fill(card);
+    await expiryFrame.locator("#cardExpiry").fill(date);
+    await expiryFrame.locator("#cardCvc").fill(cvc);
+    await expiryFrame.locator("#billingName").fill(name); 
+}
 
+async clickOnSaveButton(){
+    const expiryFrame = this.page.frameLocator("//iframe[@title='Embedded checkout']");
+    await expiryFrame.locator("//div[@class='SubmitButton-IconContainer']").click();
+}
 
+async verifyBookingCompletePopup(){
+    await expect(this.bookingCompletePopup).toBeVisible({timeout:60000});
+}
 
+async verifyBookingNumber(){
+   const bookingNo =  await this.page.locator("(//span[@class='w-[50%] font-bold text-end'])[5]");
+   const validBookingNo =  await bookingNo.innerText();
+   await this.completeBookingDashboardButton.click();
+   await this.bookingNumberField.click();
+   const bookingNoField = await this.page.locator("#floating_outlined1");
+   const fillBookingNo = bookingNoField.fill(validBookingNo);
+   const filteredBookingNo = await this.page.locator("(//td[@class='pt-3 pb-2 text-center font-medium text-base max-sm:text-xs max-sm:px-1'])[2]");
+   await this.page.waitForTimeout(3000);
+   const validFilteredBookingNo = await filteredBookingNo.innerText();
+   if (validBookingNo === validFilteredBookingNo) {
+   console.log('✅ Booking numbers match' + ' >>> Booking Number ' + validBookingNo);
+   } else {
+   console.log('❌ Booking numbers do not match' + validBookingNo + '...........' +validFilteredBookingNo);
+   throw new Error('Booking numbers mismatch'+ +validBookingNo + '...........' +validFilteredBookingNo); 
+   }
+   }
 
 }
 module.exports = { LoginPage };

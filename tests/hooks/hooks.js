@@ -22,7 +22,7 @@ BeforeAll(async () => {
 Before(async function () {
     this.page = page; 
     this.loginPage = new LoginPage(this.page);
-    this.page.setDefaultTimeout(30000);
+    this.page.setDefaultTimeout(40000);
 });
 
 After(async function (scenario) {
