@@ -13,6 +13,29 @@ Feature: Functionality test of rentifAi dev
       | validEmail             | validPassword |
       | vikasvkybrix@gmail.com | Hello@123     |
 
+  Scenario Outline: Verify that "Owner" is able to list a car on "RentifAi"
+    When User clicks the "List a Car" button
+    When User click the "List Now" button on the dashboard
+    Then User should be redirected on car plate number verification page
+    When User clicks the "Verify" button on car listing page
+    Then Validation message "Please Enter a Valid Plate No." should appear
+    When User clicks the "Next" button on car listing page
+    Then Validation message "Plate number is Required *" should appear
+    When User fills the car plate number "<plateNumber>" in the plate number field
+    When User clicks the "Next" button on car listing page
+    Then Validation message "Please verify your plate number first" should appear
+    When User clicks the "Verify" button on car listing page
+    When User selects the fuel type "<fuelType>" from the dropdown
+    When User clicks the "Next" button on car listing page
+    Then Validation message "Section 1 Saved Successfully." should appear
+    When User clicks the "Next" button on car listing page
+    Then Validation message "Please add at least one point of contact before continuing." should appear
+    Then Validation message "required*" should appear
+
+    Examples:
+      | plateNumber | fuelType |
+      | RQM887      |       98 |
+
   Scenario Outline: Verify that user is able to rent a car with future date and time
     When User clicks the Rent a Car button
     When User click the Rent Now button on the dashboard
