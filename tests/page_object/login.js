@@ -112,29 +112,64 @@ class LoginPage {
     return this.page.locator("(//div[contains(text(),'List a Car')])[1]");
   }
 
-   get listNowButton() {
+  get listNowButton() {
     return this.page.locator("(//span[contains(text(),'List now')])[2]");
   }
 
-   get carListingFirstSection() {
+  get carListingFirstSection() {
     return this.page.locator("//p[contains(text(),'What is Your Car Plate Number?')]");
   }
 
-
-   get verifyButton() {
+  get verifyButton() {
     return this.page.locator("//button[contains(text(),'Verify')]");
   }
 
-   get bankDeatilsCrossButton() {
+  get bankDeatilsCrossButton() {
     return this.page.locator("(//button[@class='absolute top-4 right-2 text-white rounded-full bg-[#A64AC9] w-7 h-7 flex items-center justify-center'])[1]");
   }
 
-    get nextButton() {
+  get nextButton() {
     return this.page.locator("//button[contains(text(),'Next')]");
   }
 
-   get plateField() {
+  get plateField() {
     return this.page.getByPlaceholder("Plate Number");
+  }
+
+  get nameField() {
+    return this.page.locator("(//input[@type='text'])[3]");
+  }
+
+  get mobileField() {
+    return this.page.locator("(//input[@type='text'])[4]");
+  }
+
+  get carListingEmailField() {
+    return this.page.locator("//input[@type='email']");
+  }
+
+   get kmDrivenField() {
+    return this.page.locator("#kmDriven");
+  }
+
+  get carPrice() {
+    return this.page.locator("(//input[@type='number'])[1]");
+  }
+
+  get carValueField() {
+    return this.page.locator("#valueOfCar");
+  }
+
+  get pickupLocation() {
+    return this.page.locator("#location-city-input");
+  }
+
+  get pickupDeliveryField() {
+    return this.page.locator("//input[@type='number']");
+  }
+
+  get airportfield() {
+    return this.page.locator("#airport");
   }
 
 
@@ -157,20 +192,7 @@ class LoginPage {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
 
   async verifyHomepage() {
     await expect(this.page).toHaveURL("https://rentifaidev.coinbitwallet.com/");
@@ -330,15 +352,14 @@ class LoginPage {
     }
   }
 
-
- async clickOnListACarButton() {
+  async clickOnListACarButton() {
     await this.listACarButton.click();
   }
 
   async clickOnlistNowButton() {
-    try{
-        await this.bankDeatilsCrossButton.click();
-    }catch(error){}
+    try {
+      await this.bankDeatilsCrossButton.click();
+    } catch (error) {}
 
     await this.listNowButton.click();
   }
@@ -347,32 +368,123 @@ class LoginPage {
     await expect(this.carListingFirstSection).toBeVisible({ timeout: 40000 });
   }
 
-   async clickOnVerifyButton() {
+  async clickOnVerifyButton() {
     await this.verifyButton.click();
   }
 
-  async verifyValidationMessage(validation){
-    const msg = await this.page.locator("//span[contains(text(),'" + validation + "')]|//div[contains(text(),'" + validation + "')]");
-    await expect(msg).toBeVisible({timeout:20000});
-    console.log("Validation is visible >>>> " + validation );
+  async verifyValidationMessage(validation) {
+    const msg = await this.page.locator("(//span[contains(text(),'" + validation + "')]|//div[contains(text(),'" + validation + "')])[1]");
+    await expect(msg).toBeVisible({ timeout: 30000 });
+    console.log("Validation is visible >>>> " + validation);
   }
 
-   async clickOnNextButton() {
+  async clickOnNextButton() {
     await this.nextButton.click();
   }
 
-    async fillPlateField(text) {
+  async fillPlateField(text) {
     await this.plateField.fill(text);
   }
 
-  async selectPetrolType(type){
+  async selectPetrolType(type) {
     const fuelType = await this.page.locator("//div[@class='w-full relative dropdown-wrapper  mt-0.5']//select");
     await fuelType.click();
     await fuelType.selectOption({ label: type });
   }
 
-    
+  async fillNameField(text) {
+    await this.nameField.fill(text);
+    await this.page.waitForTimeout(500);
+  }
+
+  async fillMobileField(text) {
+    await this.mobileField.fill(text);
+    await this.page.waitForTimeout(500);
+  }
+
+  async fillCarListingEmailField(text) {
+    await this.carListingEmailField.fill(text);
+    await this.page.waitForTimeout(500);
+  }
+
+   async fillKmDrivenField(text) {
+    await this.kmDrivenField.fill(text);
+  }
 
   
+  async clickOnButtonWithText(text) {
+    const button = await this.page.locator("//button[contains(text(),'" + text + "')]");
+    await button.click();
+  }
+
+  async fillCarPriceField(text) {
+    await this.carPrice.fill(text);
+  }
+
+  async fillPickupLocationField(text) {
+    await this.pickupLocation.fill(text);
+    await this.page.waitForTimeout(3000);
+    await this.page.keyboard.press("ArrowDown");
+    await this.page.keyboard.press("Enter");
+  }
+
+  
+  async fillCarValueField(text) {
+    await this.carValueField.fill(text);
+    await this.page.waitForTimeout(500);
+  }
+
+ async selectPickupDeliveryOption(type) {
+    const option = await this.page.locator("(//select[@class='w-full pl-10 py-3 border rounded-lg focus:ring-1 focus:ring-[#A64AC9] undefined'])[1]");
+    await option.selectOption({ label: type });
+  }
+
+   async selectAirportDeliveryOption(type) {
+    const option = await this.page.locator("//select[@class='w-full pl-10 py-3 border rounded-lg focus:ring-1 focus:ring-[#A64AC9] undefined']");
+    await option.selectOption({ label: type });
+  }
+
+  async fillPickupDeliveryField(text) {
+    await this.pickupDeliveryField.fill(text);
+  }
+
+    async fillAirportField(type) {
+    await this.airportfield.selectOption({ label: type });
+  }
+
+  async selectAccessories(text){
+    const accesoriesName = await this.page.locator('//label[text()="Accessory Name"]/following-sibling::select');
+    await accesoriesName.selectOption({ label: text });
+  }
+
+  async fillPackages(type){
+    const option = await this.page.locator("(//input[@type='number'])[1]");
+    await option.fill(type)
+  }
+
+  
+  async clickPackagesOption(option){
+    await this.page.locator("//li[contains(text(),'" + option + "')]").click();
+  }
+
+  async uploadingCarImages(){
+    await this.page.locator("#thumbnailUpload").setInputFiles('test_Data/car_Images/thumbnail.jpg');
+   
+    await this.page.locator("#interiorUpload1").setInputFiles([
+    'test_Data/car_Images/interior1.jpg',
+    'test_Data/car_Images/interior2.jpg',
+    'test_Data/car_Images/interior3.jpg'
+  ]);
+
+  await this.page.locator("#exteriorUpload").setInputFiles([
+    'test_Data/car_Images/exterior1.jpg',
+    'test_Data/car_Images/exterior2.jpg',
+    'test_Data/car_Images/exterior3.jpg'
+  ]);
+
+  await this.page.locator("#windscreenUpload").setInputFiles('test_Data/car_Images/windscreen.jpg');
+  }
+
+
 }
 module.exports = { LoginPage };

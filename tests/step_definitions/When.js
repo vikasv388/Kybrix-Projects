@@ -97,4 +97,73 @@ When('User selects the fuel type {string} from the dropdown', async function (te
   await this.loginPage.selectPetrolType(text);
 });
 
+When('User fills the name {string} in "Name" field', async function (text) {
+  await this.loginPage.fillNameField(text);
+});
+
+When('User fills the mobile {string} in "Mobile" field', async function (text) {
+  await this.loginPage.fillMobileField(text);
+});
+
+When('User fills the email {string} in "Email" field', async function (text) {
+  await this.loginPage.fillCarListingEmailField(text);
+});
+
+When('User fills the km {string} in "Km Driven" field', async function (text) {
+  await this.loginPage.fillKmDrivenField(text);
+});
+
+
+When('User clicks the button with text {string}', async function (text) {
+  await this.loginPage.clickOnButtonWithText(text);
+});
+
+When('User fills the car price {string} in the field', async function (text) {
+  await this.loginPage.fillCarPriceField(text);
+});
+
+When('User fills the pickup location {string} in the field', async function (text) {
+  await this.loginPage.fillPickupLocationField(text);
+});
+
+When('User fills the car value {string} in the field', async function (text) {
+  await this.loginPage.fillCarValueField(text);
+});
+
+When('User selects the pickup delivery option {string}', async function (text) {
+  await this.loginPage.selectPickupDeliveryOption(text);
+});
+
+When('User fills the delivery charges {string} in the field', async function (text) {
+  await this.loginPage.fillPickupDeliveryField(text);
+});
+
+When('User selects the Airport delivery option {string}', async function (text) {
+  await this.loginPage.selectAirportDeliveryOption(text);
+});
+
+When('User fills the airport location {string} in the field', async function (text) {
+  await this.loginPage.fillAirportField(text);
+});
+
+When('User selects the accessories {string} from the dropdown', async function (text) {
+  await this.loginPage.selectAccessories(text);
+});
+
+When('User fill the price in {string} packages', async function (text) {
+  await this.loginPage.fillPackages(text);
+});
+
+When('User clicks the {string} option on the listing page', async function (text) {
+  await this.loginPage.clickPackagesOption(text);
+});
+
+When('User uploads the images of car', async function () {
+  await this.loginPage.uploadingCarImages();
+});
+
+
+
+
+
 
