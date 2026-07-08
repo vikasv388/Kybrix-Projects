@@ -162,6 +162,42 @@ When('User uploads the images of car', async function () {
   await this.loginPage.uploadingCarImages();
 });
 
+When('User fills the tyre pressue in the front left tyre {string} front right tyre {string} rear left tyre {string} rear right tyre {string}', async function (frontTyrePressure,rearTyrePressure, frontTyrePressure,rearTyrePressure) {
+  await this.loginPage.fillTyrePressure(frontTyrePressure,rearTyrePressure,frontTyrePressure,rearTyrePressure);
+});
+
+When('Search and delete already listed car {string}', async function (plateNumber) {
+  await this.loginPage.searchAndDeleteAlreadyListedCar(plateNumber);
+});
+
+
+When('User clicks the "Car Listing" button on the dashboard', async function () {
+  await this.loginPage.clickOnCarListingButton();
+});
+
+When('User click on the "Filters" button on Dashboard', async function () {
+  await this.loginPage.clickOnFilterDashboardButton();
+});
+
+When('User fills the plate number {string} inside filter', async function (plateNumber) {
+  await this.loginPage.fillPlateNumberFieldInsideFilters(plateNumber);
+});
+
+When('User clicks the "Eye" icon on the filtered car', async function () {
+  await this.loginPage.clickOnEyeIconButton();
+});
+
+When('User click on the "COF" button', async function () {
+  await this.loginPage.clickOnCofButton();
+});
+
+When('User clicks the Cof edit button on the car update page', async function () {
+  await this.loginPage.clickOnCofEditButton();
+});
+
+When('User fills the COF details in the popup with "Issue Date" {string} and "Expiry Date" {string}', async function (issueDate,expiryDate) {
+  await this.loginPage.fillCOFDetails(issueDate,expiryDate);
+});
 
 
 

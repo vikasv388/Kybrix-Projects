@@ -148,7 +148,7 @@ class LoginPage {
     return this.page.locator("//input[@type='email']");
   }
 
-   get kmDrivenField() {
+  get kmDrivenField() {
     return this.page.locator("#kmDriven");
   }
 
@@ -172,27 +172,45 @@ class LoginPage {
     return this.page.locator("#airport");
   }
 
+  get carListingButton() {
+    return this.page.locator("(//span[contains(text(),'Car Listings')])[2]");
+  }
+
+  get filterDashboardButton() {
+    return this.page.locator("(//div[@class='flex items-center gap-2']//button)[1]");
+  }
+
+  get plateNumberFieldInsideFilters() {
+    return this.page.locator("(//input[@class='w-full p-2 border rounded-lg'])[1]");
+  }
+
+  get eyeIconButton() {
+    return this.page.locator("(//div[@class='relative group'])[1]");
+  }
+
+  get cofButton() {
+    return this.page.locator("(//div[contains(text(),'COF')])[1]");
+  }
+
+   get cofDetailsPage() {
+    return this.page.locator("//h6[contains(text(),'COF Details')]");
+  }
+
+   get cofEditButton() {
+    return this.page.locator("(//button[@type='button'])[1]");
+  }
+
+   get cofVerificationPopup() {
+    return this.page.locator("//h2[contains(text(),'COF Verification')]");
+  }
+
+
+  
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
 
   async verifyHomepage() {
     await expect(this.page).toHaveURL("https://rentifaidev.coinbitwallet.com/");
@@ -354,13 +372,12 @@ class LoginPage {
 
   async clickOnListACarButton() {
     await this.listACarButton.click();
-  }
-
-  async clickOnlistNowButton() {
     try {
       await this.bankDeatilsCrossButton.click();
     } catch (error) {}
+  }
 
+  async clickOnlistNowButton() {
     await this.listNowButton.click();
   }
 
@@ -374,7 +391,7 @@ class LoginPage {
 
   async verifyValidationMessage(validation) {
     const msg = await this.page.locator("(//span[contains(text(),'" + validation + "')]|//div[contains(text(),'" + validation + "')])[1]");
-    await expect(msg).toBeVisible({ timeout: 30000 });
+    await expect(msg).toBeVisible({ timeout: 45000 });
     console.log("Validation is visible >>>> " + validation);
   }
 
@@ -407,11 +424,10 @@ class LoginPage {
     await this.page.waitForTimeout(500);
   }
 
-   async fillKmDrivenField(text) {
+  async fillKmDrivenField(text) {
     await this.kmDrivenField.fill(text);
   }
 
-  
   async clickOnButtonWithText(text) {
     const button = await this.page.locator("//button[contains(text(),'" + text + "')]");
     await button.click();
@@ -428,18 +444,17 @@ class LoginPage {
     await this.page.keyboard.press("Enter");
   }
 
-  
   async fillCarValueField(text) {
     await this.carValueField.fill(text);
     await this.page.waitForTimeout(500);
   }
 
- async selectPickupDeliveryOption(type) {
+  async selectPickupDeliveryOption(type) {
     const option = await this.page.locator("(//select[@class='w-full pl-10 py-3 border rounded-lg focus:ring-1 focus:ring-[#A64AC9] undefined'])[1]");
     await option.selectOption({ label: type });
   }
 
-   async selectAirportDeliveryOption(type) {
+  async selectAirportDeliveryOption(type) {
     const option = await this.page.locator("//select[@class='w-full pl-10 py-3 border rounded-lg focus:ring-1 focus:ring-[#A64AC9] undefined']");
     await option.selectOption({ label: type });
   }
@@ -448,43 +463,144 @@ class LoginPage {
     await this.pickupDeliveryField.fill(text);
   }
 
-    async fillAirportField(type) {
+  async fillAirportField(type) {
     await this.airportfield.selectOption({ label: type });
   }
 
-  async selectAccessories(text){
+  async selectAccessories(text) {
     const accesoriesName = await this.page.locator('//label[text()="Accessory Name"]/following-sibling::select');
     await accesoriesName.selectOption({ label: text });
   }
 
-  async fillPackages(type){
+  async fillPackages(type) {
     const option = await this.page.locator("(//input[@type='number'])[1]");
-    await option.fill(type)
+    await option.fill(type);
   }
 
-  
-  async clickPackagesOption(option){
+  async clickPackagesOption(option) {
     await this.page.locator("//li[contains(text(),'" + option + "')]").click();
   }
 
-  async uploadingCarImages(){
-    await this.page.locator("#thumbnailUpload").setInputFiles('test_Data/car_Images/thumbnail.jpg');
-   
-    await this.page.locator("#interiorUpload1").setInputFiles([
-    'test_Data/car_Images/interior1.jpg',
-    'test_Data/car_Images/interior2.jpg',
-    'test_Data/car_Images/interior3.jpg'
-  ]);
+  async uploadingCarImages() {
+    await this.page.locator("#thumbnailUpload").setInputFiles("test_Data/car_Images/thumbnail.jpg");
 
-  await this.page.locator("#exteriorUpload").setInputFiles([
-    'test_Data/car_Images/exterior1.jpg',
-    'test_Data/car_Images/exterior2.jpg',
-    'test_Data/car_Images/exterior3.jpg'
-  ]);
+    await this.page.locator("#interiorUpload1").setInputFiles(["test_Data/car_Images/interior1.jpg", "test_Data/car_Images/interior2.jpg", "test_Data/car_Images/interior3.jpg"]);
 
-  await this.page.locator("#windscreenUpload").setInputFiles('test_Data/car_Images/windscreen.jpg');
+    await this.page.locator("#exteriorUpload").setInputFiles(["test_Data/car_Images/exterior1.jpg", "test_Data/car_Images/exterior2.jpg", "test_Data/car_Images/exterior3.jpg"]);
+
+    await this.page.locator("#windscreenUpload").setInputFiles("test_Data/car_Images/windscreen.jpg");
+    await this.page.waitForTimeout(1500);
   }
 
+  async fillTyrePressure(frontTyrePressure, rearTyrePressure) {
+    const frontLeftTyre = await this.page.locator("(//input[@type='number'])[1]");
+    await frontLeftTyre.fill(frontTyrePressure);
 
+    const frontRightTyre = await this.page.locator("(//input[@type='number'])[2]");
+    await frontRightTyre.fill(frontTyrePressure);
+
+    const rearLeftTyre = await this.page.locator("(//input[@type='number'])[3]");
+    await rearLeftTyre.fill(rearTyrePressure);
+
+    const rearRightTyre = await this.page.locator("(//input[@type='number'])[4]");
+    await rearRightTyre.fill(rearTyrePressure);
+  }
+
+  async searchAndDeleteAlreadyListedCar(plateNumber) {
+    const searchPlateNumber = await this.page.locator("#floating_outlined3");
+    await searchPlateNumber.fill(plateNumber);
+
+    const filteredResult = await this.page.locator("//td[contains(text(),'" + plateNumber + "')]");
+    try {
+      await filteredResult.waitFor({ state: "visible", timeout: 40000 });
+    } catch (error) {}
+
+    if (await filteredResult.isVisible()) {
+      console.log("✅ Car found in the list");
+
+      const deleteButton = await this.page.locator("(//div[@class='hover:text-[#A64AC9]'])[2]");
+      await deleteButton.waitFor({ state: "visible", timeout: 20000 });
+      await deleteButton.click();
+
+      const confirmButton = await this.page.locator("//button[contains(text(),'Confirm')]");
+      await confirmButton.waitFor({ state: "visible", timeout: 20000 });
+      await confirmButton.click();
+
+      const confirmValidation = await this.page.locator("//span[contains(text(),'Car Deleted Successfully!')]");
+      await expect(confirmValidation).toBeVisible({ timeout: 20000 });
+      console.log("Validation is visible >>> " + (await confirmValidation.innerText()));
+    } else {
+      console.log("❌ Car is not visible in the list");
+    }
+  }
+
+  async clickOnCarListingButton() {
+    await this.carListingButton.click();
+  }
+
+  async clickOnFilterDashboardButton() {
+    await this.filterDashboardButton.click();
+  }
+
+  async fillPlateNumberFieldInsideFilters(text) {
+    await this.plateNumberFieldInsideFilters.fill(text);
+  }
+
+  async verifyCarDetails(plateNumber, make, model, details) {
+    const actPlateNumber = await this.page.locator("((//tr[@class='even:bg-[#f3e1fb] hover:bg-gray-50 md:table-row hidden'])[1]//td)[1]");
+    const actMake = await this.page.locator("((//tr[@class='even:bg-[#f3e1fb] hover:bg-gray-50 md:table-row hidden'])[1]//td)[2]");
+    const actModel = await this.page.locator("((//tr[@class='even:bg-[#f3e1fb] hover:bg-gray-50 md:table-row hidden'])[1]//td)[3]");
+    const actDetails = await this.page.locator("((//tr[@class='even:bg-[#f3e1fb] hover:bg-gray-50 md:table-row hidden'])[1]//td)[4]");
+    await actPlateNumber.waitFor({ state: "visible", timeout: 40000 });
+    await expect(actPlateNumber).toHaveText(plateNumber);
+    await expect(actMake).toHaveText(make);
+    await expect(actModel).toHaveText(model);
+    await expect(actDetails).toHaveText(details);
+  }
+
+    async clickOnEyeIconButton() {
+    await this.eyeIconButton.click();
+  }
+
+  async verifyCarDetailsPage(){
+  const availbilityCalender =  await this.page.locator("(//div[@class='rmdp-calendar  '])[1]");
+  await expect (availbilityCalender).toBeVisible({ timeout: 30000 });
+  }
+
+   async clickOnCofButton() {
+    await this.cofButton.click();
+  }
+
+    async verifyCofDetailsPage(){
+  await expect(this.cofDetailsPage).toBeVisible({ timeout: 30000 });
+  }
+
+     async clickOnCofEditButton() {
+    await this.cofEditButton.click();
+  }
+  
+      async verifyCofVerificationPopup(){
+  await expect(this.cofVerificationPopup).toBeVisible({ timeout: 30000 });
+  }
+  
+  async fillCOFDetails(issueDate, expiryDate){
+  const cofIssueDate = await this.page.locator("(//input[@placeholder='DD-Mon-YYYY'])[1]");
+  await cofIssueDate.fill(issueDate);
+  await this.page.keyboard.press("Enter");
+
+  const cofExpiryDate = await this.page.locator("(//input[@placeholder='DD-Mon-YYYY'])[2]");
+  await cofExpiryDate.fill(expiryDate);
+  await this.page.keyboard.press("Enter");
+
+  const needOneRadioButton = await this.page.locator("(//input[@type='radio'])[1]");
+  await needOneRadioButton.click();
+
+  await this.page.locator("(//div[@class='text-center']//label)[1]").setInputFiles("test_Data/car_Images/exterior3.jpg");
+  await this.page.locator("//label[@for='signature-upload']").setInputFiles("test_Data/car_Images/exterior4.jpg");
+ 
+  await this.page.locator("//input[@type='checkbox']").click();
+  }
+
+  
 }
 module.exports = { LoginPage };

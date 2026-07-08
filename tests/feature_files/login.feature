@@ -15,16 +15,23 @@ Feature: Functionality test of rentifAi dev
 
   Scenario Outline: Verify that "Owner" is able to list a car on "RentifAi"
     When User clicks the "List a Car" button
+    When User clicks the "Car Listing" button on the dashboard
+    When Search and delete already listed car "<plateNumber>"
     When User click the "List Now" button on the dashboard
     Then User should be redirected on car plate number verification page
     When User clicks the "Verify" button on car listing page
     Then Validation message "Please Enter a Valid Plate No." should appear
     When User clicks the "Next" button on car listing page
     Then Validation message "Plate number is Required *" should appear
+    Then Validation message "Front left tire pressure is required" should appear
+    Then Validation message "Front right tire pressure is required" should appear
+    Then Validation message "Rear left tire pressure is required" should appear
+    Then Validation message "Rear right tire pressure is required" should appear
     When User fills the car plate number "<plateNumber>" in the plate number field
     When User clicks the "Next" button on car listing page
     Then Validation message "Please verify your plate number first" should appear
     When User clicks the "Verify" button on car listing page
+    When User fills the tyre pressue in the front left tyre "<frontTyrePressure>" front right tyre "<frontTyrePressure>" rear left tyre "<rearTyrePressure>" rear right tyre "<rearTyrePressure>"
     When User selects the fuel type "<fuelType>" from the dropdown
     When User clicks the "Next" button on car listing page
     Then Validation message "Section 1 Saved Successfully." should appear
@@ -100,9 +107,32 @@ Feature: Functionality test of rentifAi dev
     Then Validation message "Car Listed Successfully!" should appear
 
     Examples:
-      | plateNumber | fuelType | name  | mobile    | email                  | carPrice | pickupLocation                                      | carValue | kmDriven | deliveryOption | deliverycharges | airportLocation  | accessories | secondAccessories | ThirdAccessories | weeklyPrice | fortnightlyPrice | monthlyPrice | quarterlyPrice | yearlyPrice |
-      | RQM887      |       98 | vikas | 354768901 | vikasvkybrix@gmail.com |       65 | Nile Road, Forrest Hill, Auckland 0620, New Zealand |    48000 |     1008 | Yes            |              20 | Auckland Airport | Baby Seat   | Wi-fi             | Tow Bar          |           2 |                4 |            6 |              8 |          10 |
- 
+      | plateNumber | fuelType | name  | mobile    | email                  | carPrice | pickupLocation                                      | carValue | kmDriven | deliveryOption | deliverycharges | airportLocation  | accessories | secondAccessories | ThirdAccessories | weeklyPrice | fortnightlyPrice | monthlyPrice | quarterlyPrice | yearlyPrice | frontTyrePressure | rearTyrePressure |
+      | RQM887      |       98 | vikas | 354768901 | vikasvkybrix@gmail.com |       65 | Nile Road, Forrest Hill, Auckland 0620, New Zealand |    48000 |     1008 | Yes            |              20 | Auckland Airport | Baby Seat   | Wi-fi             | Tow Bar          |           2 |                4 |            6 |              8 |          10 |                40 |               40 |
+
+  Scenario Outline: Verify that User is able to Add the "COF" in the newly listed car
+    When User clicks the "List a Car" button
+    When User click on the "Filters" button on Dashboard
+    When User fills the plate number "<plateNumber>" inside filter
+    When User clicks the button with text "Apply Filters"
+    Then Verify that car details are visible with "Plate Number" "<plateNumber>" "Make" "<make>" "Model" "<model>" "Details" "<details>"
+    When User clicks the "Eye" icon on the filtered car
+    Then User should be redirected on car details page
+    When User click on the "COF" button
+    Then User should be redirected to "COF Details" page
+    When User clicks the Cof edit button on the car update page
+    Then User should be redirected on "COF Verification" popup
+    When User fills the COF details in the popup with "Issue Date" "<issueDate>" and "Expiry Date" "<expiryDate>"
+    When User clicks the button with text "Submit COF"
+    When User click on the "Filters" button on Dashboard
+    When User fills the plate number "<plateNumber>" inside filter
+    When User clicks the button with text "Apply Filters"
+    Then Verify that car details are visible with "Plate Number" "<plateNumber>" "Make" "<make>" "Model" "<model>" "Details" "<approveDetails>"
+   
+    Examples:
+      | plateNumber | make    | model | details | issueDate   | expiryDate  | approveDetails |
+      | RQM887      | Hyundai | I20   | PENDING | 07-May-2024 | 05-Dec-2030 | APPROVED       |
+
   # Scenario Outline: Verify that user is able to rent a car with future date and time 
   #   When User clicks the Rent a Car button
   #   When User click the Rent Now button on the dashboard

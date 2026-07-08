@@ -49,3 +49,19 @@ Then('User should be redirected on car plate number verification page', async fu
 Then('Validation message {string} should appear', async function (msg) {
   await this.loginPage.verifyValidationMessage(msg);
 });
+
+Then('Verify that car details are visible with "Plate Number" {string} "Make" {string} "Model" {string} "Details" {string}', async function (plateNumber,make,model,details) {
+  await this.loginPage.verifyCarDetails(plateNumber,make,model,details);
+});
+
+Then('User should be redirected on car details page', async function () {
+  await this.loginPage.verifyCarDetailsPage();
+});
+
+Then('User should be redirected to "COF Details" page', async function () {
+  await this.loginPage.verifyCofDetailsPage();
+});
+
+Then('User should be redirected on "COF Verification" popup', async function () {
+  await this.loginPage.verifyCofVerificationPopup();
+});
