@@ -162,4 +162,5 @@ Feature: Functionality test of rentifAi dev
   #     | Nile Road, Forrest Hill, Auckland 0620, New Zealand | 4242424242424242 |      12/30 | 266 | Rentifai Test User |
 
 
- Scenario Outline: Verify that user is able to rent a car with future date and time for test
+ Scenario Outline: Verify that user is able to rent a car with future date and time 
+ When created for test taskfleet
