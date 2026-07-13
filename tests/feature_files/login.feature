@@ -163,4 +163,4 @@ Feature: Functionality test of rentifAi dev
 
 
  Scenario Outline: Verify that user is able to rent a car with future date and time 
- When created for test taskfleet
+ When created for test taskfleet for test
